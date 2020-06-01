@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css'
 import { sampleText } from './sampleText'
-
+import marked from 'marked'
 import { render } from '@testing-library/react';
 
 class App extends Component {
@@ -14,6 +14,12 @@ class App extends Component {
     const text = event.target.value
     this.setState({ text })
   }
+
+  renderText = text => {
+    const __html = marked(text, { sanitize: true })
+    return { __html }
+  }
+
   render() {
     return (
       <div className="container">
@@ -26,7 +32,7 @@ class App extends Component {
             </textarea>
           </div>
           <div className="col-sm-6">
-          { sampleText }
+            <div dangerouslySetInnerHTML={ this.renderText(this.state.text) }></div>
           </div>
         </div>
       </div>
