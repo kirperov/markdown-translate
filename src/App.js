@@ -20,6 +20,20 @@ class App extends Component {
     return { __html }
   }
 
+  componentDidUpdate() {
+    const { text } = this.state 
+    localStorage.setItem('text', text)
+  }
+
+  componentDidMount() {
+    const text = localStorage.getItem('text')
+    if(text) {
+      this.setState({ text })  
+    } else {
+      this.setState({ text: sampleText})
+    }
+  }
+
   render() {
     return (
       <div className="container">
